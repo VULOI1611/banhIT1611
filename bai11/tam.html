@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhận Diện Tam Giác</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e8f0fe;
+        }
+        .container {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            margin: 0 0 20px 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        label {
+            flex: 1;
+            margin-right: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+        button {
+            width: 100px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>NHẬN DẠNG TAM GIÁC</h2>
+        <form id="triangleForm" method="post">
+            <div class="form-group">
+                <label for="side1">Cạnh 1:</label>
+                <input type="text" id="side1" name="side1" > (cm)
+            </div>
+            <div class="form-group">
+                <label for="side2">Cạnh 2:</label>
+                <input type="text" id="side2" name="side2" > (cm)
+            </div>
+            <div class="form-group">
+                <label for="side3">Cạnh 3:</label>
+                <input type="text" id="side3" name="side3" > (cm)
+            </div>
+            <div class="form-group">
+                <label for="triangleType">Loại tam giác:</label>
+                <select id="triangleType" name="triangleType" readonly>
+                    <option value="Tam giác đều">Tam giác đều</option>
+                    <option value="Tam giác vuông">Tam giác vuông</option>
+                    <option value="Tam giác cân">Tam giác cân</option>
+                    <option value="Tam giác thường">Tam giác thường</option>
+                </select>
+            </div>
+            <button type="button" onclick="identifyTriangle()">Nhận dạng</button>
+        </form>
+    </div>
+    <script>
+        function identifyTriangle() {
+            const side1 = parseFloat(document.getElementById('side1').value);
+            const side2 = parseFloat(document.getElementById('side2').value);
+            const side3 = parseFloat(document.getElementById('side3').value);
+            let triangleType = "";
+
+            if (isNaN(side1) || isNaN(side2) || isNaN(side3) || 
+                side1 <= 0 || side2 <= 0 || side3 <= 0 ||
+                side1 + side2 <= side3 || side1 + side3 <= side2 || side2 + side3 <= side1) {
+                triangleType = "Không là tam giác";
+            } else if (side1 === side2 && side2 === side3) {
+                triangleType = "Tam giác đều";
+            } else if (side1 === side2 || side2 === side3 || side1 === side3) {
+                triangleType = "Tam giác cân";
+            } else if (
+                Math.abs(side1*side1 + side2*side2 - side3*side3) < 0.000001 ||
+                Math.abs(side1*side1 + side3*side3 - side2*side2) < 0.000001 ||
+                Math.abs(side2*side2 + side3*side3 - side1*side1) < 0.000001
+            ) {
+                triangleType = "Tam giác vuông";
+            } else {
+                triangleType = "Tam giác thường";
+            }
+
+            document.getElementById('triangleType').value = triangleType;
+        }
+
+     
+        window.onload = identifyTriangle;
+    </script>
+</body>
+</html>
