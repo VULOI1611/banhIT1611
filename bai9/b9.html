@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Giải Phương Trình Bậc 1</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus, input[type="text"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        }
+
+        input[readonly] {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result-group {
+            margin-top: 20px;
+        }
+
+        .result-group input[type="text"] {
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Giải Phương Trình Bậc Nhất Có Dạng ax + b = 0</h2>
+        <div class="form-group">
+            <label for="a">Nhập hệ số a:</label>
+            <input type="number" id="a" placeholder="Nhập giá trị của a">
+        </div>
+        <div class="form-group">
+            <label for="b">Nhập hệ số b:</label>
+            <input type="number" id="b" placeholder="Nhập giá trị của b">
+        </div>
+        <button onclick="giaiPhuongTrinh()">Giải phương trình</button>
+        <div class="form-group">
+            <label for="result">Nghiệm của phương trình:</label>
+            <input type="text" id="result" readonly>
+        </div>
+    </div>
+    <script>
+        function giaiPhuongTrinh() {
+            // Lấy giá trị từ các ô nhập liệu
+            let a = parseFloat(document.getElementById('a').value);
+            let b = parseFloat(document.getElementById('b').value);
+            
+            // Kiểm tra các điều kiện của phương trình
+            if (isNaN(a) || isNaN(b)) {
+                document.getElementById('result').value = "Vui lòng nhập đầy đủ giá trị!";
+                return;
+            }
+
+            if (a === 0 && b === 0) {
+                document.getElementById('result').value = "Phương trình có vô số nghiệm";
+            } else if (a === 0 && b !== 0) {
+                document.getElementById('result').value = "Phương trình vô nghiệm";
+            } else {
+                // Tính nghiệm của phương trình
+                let x = -b / a;
+                document.getElementById('result').value = `x = ${x}`;
+            }
+        }
+    </script>
+</body>
+</html>
