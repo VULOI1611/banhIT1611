@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Văn Phòng Phẩm Online - Giỏ Hàng</title>
+    <link rel="stylesheet" href="styles/register.css">
+    <link rel="stylesheet" href="styles/cart.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="image/logo.png" alt="Logo">
+            <h1>VĂN PHÒNG PHẨM</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="products.html">Sản Phẩm</a></li>
+                <li><a href="cart.html">Giỏ Hàng (<span id="cart-count">0</span>)</a></li>
+                <li><a href="checkout.html">Giao Hàng</a></li>
+                <li><a href="payment.html">Thanh Toán</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Giỏ Hàng</h2>
+        <div id="cart-items"></div>
+        <button onclick="checkout()">Thanh Toán</button>
+    </section>
+
+    <footer>
+        <p>&copy;Liên hệ <br> Số điện thoại: 0936506962 <br> Địa chỉ: 123 Lĩnh Nam - Hoàng Mai - Hà Nội</p>
+    </footer>
+
+    <script>
+        function displayCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsDiv = document.getElementById('cart-items');
+
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<p>Giỏ hàng trống!</p>';
+                return;
+            }
+
+            cartItemsDiv.innerHTML = ''; // Xóa nội dung cũ
+            cart.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.innerHTML = `
+                    <span>${item.name} - Số lượng: 
+                        <button onclick="updateQuantity(${index}, -1)">-</button>
+                        <span id="quantity-${index}">${item.quantity}</span>
+                        <button onclick="updateQuantity(${index}, 1)">+</button>
+                    </span>
+                    <button onclick="removeItem(${index})">Xóa</button>
+                `;
+                cartItemsDiv.appendChild(itemDiv);
+            });
+        }
+
+        function updateQuantity(index, change) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart[index].quantity + change <= 0) {
+                alert('Số lượng không thể nhỏ hơn 1');
+                return;
+            }
+            cart[index].quantity += change;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems(); // Cập nhật lại hiển thị giỏ hàng
+            updateCartCount(); // Cập nhật số lượng giỏ hàng
+        }
+
+        function removeItem(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1); // Xóa sản phẩm khỏi giỏ hàng
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems(); // Cập nhật lại hiển thị giỏ hàng
+            updateCartCount(); // Cập nhật số lượng giỏ hàng
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        function checkout() {
+            window.location.href = 'checkout.html'; // Chuyển sang trang giao hàng
+        }
+
+        // Hiển thị giỏ hàng khi trang được tải
+        document.addEventListener('DOMContentLoaded', function () {
+            displayCartItems();
+            updateCartCount();
+        });
+    </script>
+</body>
+
+</html>

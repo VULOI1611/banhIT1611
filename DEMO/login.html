@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - Văn Phòng Phẩm Online</title>
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+
+<body>
+    <header>
+        <h1>Đăng Nhập Tài Khoản</h1>
+    </header>
+
+    <section id="login">
+        <form id="login-form">
+            <label for="username">Tên đăng nhập:</label>
+            <input type="text" id="username" required>
+
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" required>
+
+            <button type="submit">Đăng Nhập</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy;Liên hệ <br> Số điện thoại: 0936506962 <br> Địa chỉ: 123 Lĩnh Nam - Hoàng Mai - Hà Nội</p>
+    </footer>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Thêm logic đăng nhập vào đây (kiểm tra thông tin từ localStorage hoặc gọi API)
+
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+            // Lưu password vào localStorage khi đăng ký
+            if (username === storedUsername && password === storedPassword) {
+                alert('Đăng nhập thành công! Chào mừng ' + username);
+                localStorage.setItem('loggedInUser', username);
+                // Hiển thị tên tài khoản
+                window.location.href = 'index.html';
+                document.getElementById('username-display').textContent = username;
+                document.getElementById('user-info').style.display = 'block';
+                
+            } else {
+                alert('Tên đăng nhập hoặc mật khẩu không đúng!');
+            }
+
+        });
+    </script>
+</body>
+
+</html>

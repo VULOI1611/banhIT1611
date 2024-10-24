@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Văn Phòng Phẩm Online - Trang Chủ</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="image/logo.png" alt="Logo">
+            <h1>VĂN PHÒNG PHẨM</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="products.html">Sản Phẩm</a></li>
+                <li><a href="cart.html">Giỏ Hàng (<span id="cart-count">0</span>)</a></li>
+                <li><a href="checkout.html">Giao Hàng</a></li>
+                <li><a href="cart.html">Thanh Toán</a></li>
+                <!-- <li><a href="register.html">Đăng Ký</a></li>
+                <li><a href="login.html">Đăng Nhập</a></li> -->
+            </ul>
+        </nav>
+        <div class="user-info" id="user-info" style="display: none;">
+            <span id="username-display"></span>
+            <a href="#" id="logout">Đăng Xuất</a>
+        </div>
+    </header>
+
+    <section>
+        <h2>Chào Mừng Đến Với Cửa Hàng Văn Phòng Phẩm</h2>
+        <h2>Khám phá các sản phẩm văn phòng phẩm chất lượng với giá cả phải chăng.</h2>
+    </section>
+
+    <footer>
+        <p>&copy;Liên hệ <br> Số điện thoại: 0936506962 <br> Địa chỉ: 123 Lĩnh Nam - Hoàng Mai - Hà Nội</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                document.getElementById('username-display').textContent = loggedInUser;
+                document.getElementById('user-info').style.display = 'block';
+            }
+        });
+
+        // Thêm sự kiện cho nút Đăng Xuất
+        document.getElementById('logout').addEventListener('click', function () {
+            localStorage.removeItem('loggedInUser'); // Xóa thông tin đăng nhập
+            window.location.href = 'login.html'; // Chuyển hướng đến trang đăng nhập
+        });
+
+    </script>
+</body>
+
+
+</html>
